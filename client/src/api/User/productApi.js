@@ -7,6 +7,7 @@ export const getFilterByCategory = (categoryId) =>
   axiosClient.get(`${baseURLUserProduct}/getByCategory/${categoryId}`);
 
 export const filterProduct = (categoryId, filter) => {
+  // debugger;
   const { rating, brands, price, page } = filter;
 
   let queryString = `${baseURLUserProduct}/getByFilter/${categoryId}?page=${page}`;

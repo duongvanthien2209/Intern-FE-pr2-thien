@@ -4,6 +4,10 @@ export const baseURLUserProduct = "/user/product";
 export const baseURLUserOrder = "/user/order";
 
 export const baseURLAdminAuth = "/admin/auth";
+export const baseURLAdminUser = "/admin/user";
+export const baseURLAdminOrder = "/admin/order";
+export const baseURLAdminOrderDetail = "/admin/orderDetail";
+export const baseURLAdminProduct = "/admin/product";
 
 export const baseUrl = "http://localhost:5000/api";
 
@@ -13,6 +17,14 @@ export const RESPONSE_STATUS_FAILED = "failed";
 
 // Page
 export const limit = 20;
+
+// Option status
+export const statusOptions = [
+  "Đang xử lý",
+  "Đang giao hàng",
+  "Đã thanh toán",
+  "Đã hủy",
+];
 
 // Validation Messages
 export const VALIDATION_USERNAME = { required: "Bạn phải nhập tên đăng nhập" };
@@ -54,4 +66,12 @@ export const VALIDATION_RESET_PASSWORD = {
 export const VALIDATION_CONFIRM_RESET_PASSWORD = {
   required: "Bạn phải nhập lại mật khẩu mới",
   oneOf: "Mật khẩu không khớp",
+};
+export const VALIDATION_DATE_FROM = {
+  required: "Bạn phải chọn ngày",
+  max: "Ngày nhập phải nhỏ hơn ngày tới",
+};
+export const VALIDATION_DATE_TO = {
+  required: "Bạn phải chọn ngày",
+  min: "Ngày nhập phải lớn hơn ngày từ",
 };

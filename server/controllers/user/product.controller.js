@@ -5,6 +5,24 @@ const Product = require("../../models/Product.model");
 
 const limit = 20;
 
+// Lấy 1 product cụ thể
+exports.getProduct = async (req, res, next) => {
+  const { productId } = req.params;
+
+  try {
+    if (!productId) throw new Error("Có lỗi xảy ra");
+
+    const product = await Product.findById(productId);
+
+    if (!product) throw new Error("Product ID không hợp lệ");
+
+    return Response.success(res, { product });
+  } catch (error) {
+    console.log(error);
+    return next(error);
+  }
+};
+
 // Lấy luôn dữ liệu filter
 exports.getByCategory = async (req, res, next) => {
   const { categoryId } = req.params;

@@ -4,7 +4,10 @@ const router = express.Router();
 const {
   getByCategory,
   getByFilter,
+  getProduct,
 } = require("../../controllers/user/product.controller");
+
+router.get("/:productId", getProduct);
 
 router.get("/getByCategory/:categoryId", getByCategory);
 

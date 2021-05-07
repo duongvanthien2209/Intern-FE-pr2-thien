@@ -4,7 +4,62 @@ const Order = require("../../models/Order.model");
 const OrderDetail = require("../../models/OrderDetail.model");
 const Product = require("../../models/Product.model");
 
-exports.getAllOrder = async (req, res, next) => {};
+exports.cancelOrder = async (req, res, next) => {
+  const { orderId } = req.params;
+
+  try {
+    if (!orderId) throw new Error("Có lỗi xảy ra");
+
+    const order = await Order.findById(orderId);
+
+    if (!order) throw new Error("Có lỗi xảy ra");
+
+    order.status = "Đã hủy";
+
+    await order.save();
+
+    return Response.success(res, { message: "Đã hủy thành công" });
+  } catch (error) {
+    console.log(error);
+    return next(error);
+  }
+};
+
+exports.getAllOrder = async (req, res, next) => {
+  const { user } = req;
+
+  try {
+    if (!user) throw new Error("Có lỗi xảy ra");
+
+    const orders = await Order.find({ user: user._id }).sort({
+      dateCreate: -1,
+    });
+
+    if (!orders) throw new Error("Có lỗi xảy ra");
+
+    let parentResult = [];
+    for (let order of orders) {
+      const orderDetails = await OrderDetail.find({
+        order: order._id,
+      }).populate("product");
+
+      if (!orderDetails) throw new Error("Có lỗi xảy ra");
+
+      parentResult.push({
+        _id: order._id,
+        dateCreate: order.dateCreate,
+        total: order.total,
+        status: order.status,
+        orderDetails,
+      });
+    }
+
+    return Response.success(res, { orders: parentResult });
+  } catch (error) {
+    console.log(error);
+    return next(error);
+  }
+};
 
 exports.getOrder = async (req, res, next) => {
   const { orderId } = req.params;

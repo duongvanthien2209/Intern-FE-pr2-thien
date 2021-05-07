@@ -7,3 +7,5 @@ export const registerApi = (data) =>
 
 export const loginApi = (data) =>
   axiosClient.post(`${baseURLUserAuth}/login`, data);
+
+export const getMeApi = () => axiosClient.get(`${baseURLUserAuth}/getMe`);

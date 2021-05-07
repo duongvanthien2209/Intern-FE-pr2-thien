@@ -2,6 +2,7 @@ import {
   ADD_CART_ITEM,
   REMOVE_CART_ITEM,
   CHANGE_CART_ITEM,
+  CLEAR_CART_ITEM,
 } from "redux/actions/user/cart/cartActionType";
 
 export const addCartItem = (cart) => ({
@@ -19,4 +20,8 @@ export const removeCartItem = (cartId) => {
 export const changeCartItem = (cart) => ({
   type: CHANGE_CART_ITEM,
   payload: cart,
+});
+
+export const clearCartItem = () => ({
+  type: CLEAR_CART_ITEM,
 });

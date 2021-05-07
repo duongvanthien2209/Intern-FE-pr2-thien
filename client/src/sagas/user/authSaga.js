@@ -1,7 +1,7 @@
 import { USER_LOGIN } from "../../redux/actions/user/auth/authActionType";
 import { call, put, takeEvery } from "redux-saga/effects";
 
-import { loginApi } from "../../api/User/authApi";
+import { loginApi, getMeApi } from "../../api/User/authApi";
 
 // Constaint
 import {
@@ -23,7 +23,8 @@ function* fetchUserLogin(action) {
       throw new Error(error.message);
 
     if (status === RESPONSE_STATUS_SUCCESS && data) {
-      yield put({ type: USER_LOGIN_SUCCESS, token: data.token });
+      const { token, user } = data;
+      yield put({ type: USER_LOGIN_SUCCESS, token, user });
     }
   } catch (error) {
     console.log(error);

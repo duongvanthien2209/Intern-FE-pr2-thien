@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { Button, Input, Table } from "reactstrap";
 
 // Actions
@@ -67,7 +68,9 @@ const Cart = () => {
               ))}
             </tbody>
           </Table>
-          <Button color="primary">Thanh toán</Button>
+          <Link className="btn btn-primary" to="/main/order">
+            Thanh toán
+          </Link>
         </div>
       ) : (
         <h1>Giỏ hàng hiện đang trống</h1>

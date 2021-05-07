@@ -2,6 +2,7 @@ import {
   ADD_CART_ITEM,
   REMOVE_CART_ITEM,
   CHANGE_CART_ITEM,
+  CLEAR_CART_ITEM,
 } from "redux/actions/user/cart/cartActionType";
 
 const initialState = {
@@ -71,6 +72,10 @@ const reducer = (state = initialState, action) => {
         };
       }
     }
+    case CLEAR_CART_ITEM:
+      return {
+        cart: [],
+      };
     default:
       return state;
   }

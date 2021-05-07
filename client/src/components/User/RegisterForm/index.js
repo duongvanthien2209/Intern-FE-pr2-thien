@@ -7,38 +7,48 @@ import InputField from "custom-field/InputField";
 import RadioField from "custom-field/RadioField";
 import { Button } from "reactstrap";
 
+// Validation Messages
+import {
+  VALIDATION_USERNAME,
+  VALIDATION_EMAIL,
+  VALIDATION_PASSWORD,
+  VALIDATION_CONFIRM_PASSWORD,
+  VALIDATION_FULLNAME,
+  VALIDATION_PHONE,
+  VALIDATION_ADDRESS,
+  VALIDATION_BIRTHDAY,
+  VALIDATION_GENDER,
+} from "constants/index";
+
 const RegisterForm = ({ initialValues, onSubmit }) => {
   const validationSchema = yup.object().shape({
-    username: yup.string().required("Bạn phải nhập tên đăng nhập"),
+    username: yup.string().required(VALIDATION_USERNAME.required),
     email: yup
       .string()
-      .required("Bạn phải nhập email")
-      .email("Bạn phải nhập đúng định dạng email"),
+      .required(VALIDATION_EMAIL.required)
+      .email(VALIDATION_EMAIL.isEmail),
     password: yup
       .string()
-      .required("Bạn phải nhập mật khẩu")
+      .required(VALIDATION_PASSWORD.required)
       .matches(
         /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
-        "Mật khẩu phải nhiều hơn 8 ký tự, bao gồm chữ in thường, in Hoa, và số"
+        VALIDATION_PASSWORD.matches
       ),
     confirmPassword: yup
       .string()
-      .required("Bạn phải nhập lại mật khẩu")
-      .oneOf([yup.ref("password"), null], "Mật khẩu không khớp"),
-    fullname: yup.string().required("Bạn phải nhập họ tên"),
+      .required(VALIDATION_CONFIRM_PASSWORD.required)
+      .oneOf([yup.ref("password"), null], VALIDATION_CONFIRM_PASSWORD.oneOf),
+    fullname: yup.string().required(VALIDATION_FULLNAME.required),
     phone: yup
       .string()
-      .required("Bạn phải nhập số điện thoại")
-      .matches(
-        /0[0-9]{9}/g,
-        "Số điện thoại bắt buộc phải bắt đầu bằng số 0 và có 9 chữ số"
-      ),
-    address: yup.string().required("Bạn nhập địa chỉ"),
+      .required(VALIDATION_PHONE.required)
+      .matches(/0[0-9]{9}/g, VALIDATION_PHONE.matches),
+    address: yup.string().required(VALIDATION_ADDRESS.required),
     birthday: yup
       .date()
-      .required("Bạn phải nhập ngày sinh")
-      .max(new Date(), "Ngày sinh không được lớn hơn ngày hiện tại"),
-    gender: yup.number().min(1, "Bạn phải chọn giới tính"),
+      .required(VALIDATION_BIRTHDAY.required)
+      .max(new Date(), VALIDATION_BIRTHDAY.max),
+    gender: yup.number().min(1, VALIDATION_GENDER.required),
   });
 
   return (

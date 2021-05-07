@@ -6,8 +6,12 @@ const Response = require("../../helpers/response.helper");
 // Models
 const User = require("../../models/User.model");
 
-exports.example = (req, res) => {
-  res.send("Done");
+exports.getMe = (req, res, next) => {
+  const { user } = req;
+
+  if (!user) return next(new Error("Có lỗi xảy ra"));
+
+  return Response.success(res, { user });
 };
 
 exports.register = async (req, res, next) => {
@@ -81,7 +85,7 @@ exports.login = async (req, res, next) => {
       { expiresIn: 360000 },
       (err, token) => {
         if (err) throw err;
-        return Response.success(res, { token });
+        return Response.success(res, { token, user });
       }
     );
 

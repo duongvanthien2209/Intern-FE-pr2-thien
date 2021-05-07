@@ -11,8 +11,6 @@ import { Button } from "reactstrap";
 import {
   VALIDATION_USERNAME,
   VALIDATION_EMAIL,
-  VALIDATION_PASSWORD,
-  VALIDATION_CONFIRM_PASSWORD,
   VALIDATION_FULLNAME,
   VALIDATION_PHONE,
   VALIDATION_ADDRESS,
@@ -20,21 +18,13 @@ import {
   VALIDATION_GENDER,
 } from "constants/index";
 
-const RegisterForm = ({ initialValues, onSubmit }) => {
+const PersonInfoForm = ({ initialValues, onSubmit }) => {
   const validationSchema = yup.object().shape({
     username: yup.string().required(VALIDATION_USERNAME.required),
     email: yup
       .string()
       .required(VALIDATION_EMAIL.required)
       .email(VALIDATION_EMAIL.isEmail),
-    password: yup
-      .string()
-      .required(VALIDATION_PASSWORD.required)
-      .matches(VALIDATION_PASSWORD.regex, VALIDATION_PASSWORD.matches),
-    confirmPassword: yup
-      .string()
-      .required(VALIDATION_CONFIRM_PASSWORD.required)
-      .oneOf([yup.ref("password"), null], VALIDATION_CONFIRM_PASSWORD.oneOf),
     fullname: yup.string().required(VALIDATION_FULLNAME.required),
     phone: yup
       .string()
@@ -69,24 +59,6 @@ const RegisterForm = ({ initialValues, onSubmit }) => {
             component={InputField}
             className="form-control-user"
             placeholder="Nhập email"
-          />
-
-          <FastField
-            name="password"
-            type="password"
-            label="Mật khẩu"
-            component={InputField}
-            className="form-control-user"
-            placeholder="Nhập mật khẩu"
-          />
-
-          <FastField
-            name="confirmPassword"
-            type="password"
-            label="Mật khẩu"
-            component={InputField}
-            className="form-control-user"
-            placeholder="Nhập lại mật khẩu"
           />
 
           <FastField
@@ -133,7 +105,7 @@ const RegisterForm = ({ initialValues, onSubmit }) => {
           />
 
           <Button type="submit" color="primary">
-            ADD
+            Cập nhật
           </Button>
         </Form>
       )}
@@ -141,9 +113,4 @@ const RegisterForm = ({ initialValues, onSubmit }) => {
   );
 };
 
-RegisterForm.propTypes = {
-  initialValues: PropTypes.object.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
-
-export default RegisterForm;
+export default PersonInfoForm;

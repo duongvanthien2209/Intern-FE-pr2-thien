@@ -85,11 +85,71 @@ exports.login = async (req, res, next) => {
       { expiresIn: 360000 },
       (err, token) => {
         if (err) throw err;
-        return Response.success(res, { token, user });
+        return Response.success(res, { token, user, password });
       }
     );
 
     return;
+  } catch (error) {
+    console.log(error);
+    return next(error);
+  }
+};
+
+exports.updateInfo = async (req, res, next) => {
+  let { user } = req;
+
+  const {
+    body: { username, email, fullname, phone, address, birthday, gender },
+  } = req;
+
+  try {
+    if (
+      !user ||
+      !username ||
+      !email ||
+      !fullname ||
+      !phone ||
+      !address ||
+      !birthday ||
+      gender === undefined
+    )
+      throw new Error("Có lỗi xảy ra");
+
+    user = await User.findByIdAndUpdate(user._id, {
+      $set: { username, email, fullname, phone, address, birthday, gender },
+    });
+
+    return Response.success(res, { user });
+  } catch (error) {
+    console.log(error);
+    return next(error);
+  }
+};
+
+exports.changePassword = async (req, res, next) => {
+  let { user } = req;
+
+  const {
+    body: { password, resetPassword },
+  } = req;
+
+  try {
+    if (!user || !password || !resetPassword) throw new Error("Có lỗi xảy ra");
+
+    // Result: boolean
+    const result = await bcrypt.compare(password, user.password);
+
+    if (!result) throw new Error("Bạn nhập sai mật khẩu");
+
+    // Tạo mã hóa
+    const salt = await bcrypt.genSalt(10);
+
+    user = await User.findByIdAndUpdate(user._id, {
+      $set: { password: await bcrypt.hash(resetPassword, salt) },
+    });
+
+    return Response.success(res, { user, password: resetPassword });
   } catch (error) {
     console.log(error);
     return next(error);

@@ -1,4 +1,4 @@
-import OrderCompleted from "containers/OrderCompleted";
+import OrderCompleted from "containers/User/OrderCompleted";
 import DefaultLayout from "layouts/user/DefaultLayout";
 import React from "react";
 import { Switch, useRouteMatch } from "react-router";
@@ -8,6 +8,7 @@ import PrivateRoute from "routes/User/privateRoute";
 import Cart from "../Cart";
 import Order from "../Order";
 import OrderHistory from "../OrderHistory";
+import PersonInfo from "../PersonInfo";
 import Product from "../Product";
 import ProductDetail from "../ProductDetail";
 
@@ -40,6 +41,12 @@ const Main = () => {
           exact
           path={`${match.url}/orderHistory`}
           component={OrderHistory}
+        />
+
+        <PrivateRoute
+          exact
+          path={`${match.url}/personInfo`}
+          component={PersonInfo}
         />
 
         <PublicRoute

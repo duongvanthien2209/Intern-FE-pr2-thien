@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import classnames from "classnames";
@@ -9,15 +9,19 @@ import {
   faSearch,
   faShoppingCart,
   faBars,
-  faMobileAlt,
-  faTv,
-  faHeadphonesAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
 
 import tikiBrand from "assets/img/tiki_brand.png";
 
 import "./Header.scss";
-import { Container } from "reactstrap";
+import {
+  Container,
+  ButtonDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
 
 // Actions
 import { getCategory } from "redux/actions/user/category";
@@ -27,6 +31,11 @@ const Header = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state["user/category"]);
   const { cart } = useSelector((state) => state["user/cart"]);
+  const { isLogined, user } = useSelector((state) => state["user/auth"]);
+
+  const [dropdownOpen, setOpen] = useState(false);
+
+  const toggle = () => setOpen(!dropdownOpen);
 
   useEffect(() => {
     dispatch(getCategory());
@@ -35,7 +44,7 @@ const Header = () => {
   return (
     <header id="header">
       <Container>
-        <Link className="header__brand" to="#">
+        <Link className="header__brand" to="/main">
           <img src={tikiBrand} />
         </Link>
 
@@ -96,7 +105,29 @@ const Header = () => {
           </button>
         </form>
 
-        <div className="header__login/register"></div>
+        {!isLogined && (
+          <Link className="header__login-register" to="/login">
+            <FontAwesomeIcon className="fa-2x" icon={faUser} />
+            {" Đăng nhập"}
+          </Link>
+        )}
+
+        {user && (
+          <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
+            <DropdownToggle outline color="warning" caret>
+              {user.fullname}
+            </DropdownToggle>
+            <DropdownMenu>
+              <DropdownItem>
+                <Link to="/main/personInfo">Thông tin cá nhân</Link>
+              </DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem>
+                <Link to="/main/orderHistory">Lịch sử hóa đơn</Link>
+              </DropdownItem>
+            </DropdownMenu>
+          </ButtonDropdown>
+        )}
 
         <Link className="header__card" to="/main/cart">
           <div className="header__card__span">

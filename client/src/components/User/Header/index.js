@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+
+import classnames from "classnames";
 
 // Font Awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,7 +19,18 @@ import tikiBrand from "assets/img/tiki_brand.png";
 import "./Header.scss";
 import { Container } from "reactstrap";
 
+// Actions
+import { getCategory } from "redux/actions/user/category";
+import { useDispatch, useSelector } from "react-redux";
+
 const Header = () => {
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state["user/category"]);
+
+  useEffect(() => {
+    dispatch(getCategory());
+  }, []);
+
   return (
     <header id="header">
       <Container>
@@ -25,69 +38,49 @@ const Header = () => {
           <img src={tikiBrand} />
         </Link>
 
-        <div className="header__menu">
-          <p className="header__menu__toggle">
-            <FontAwesomeIcon className="fa-2x" icon={faBars} />
-            <span>
-              Danh mục
-              <br />
-              Sản phẩm
-            </span>
-          </p>
+        {categories.length > 0 && (
+          <div className="header__menu">
+            <p className="header__menu__toggle">
+              <FontAwesomeIcon className="fa-2x" icon={faBars} />
+              <span>
+                Danh mục
+                <br />
+                Sản phẩm
+              </span>
+            </p>
 
-          <ul className="header__sub-menu">
-            <li className="header__sub-menu__item">
-              <Link>
-                <FontAwesomeIcon className="fa-lg" icon={faMobileAlt} /> Điện
-                thoại - Máy tính bảng
-              </Link>
-
-              <ul className="header__sub-menu__item__sub-menu">
-                <li className="header__sub-menu__item__sub-menu__item">
-                  <Link>Điện thoại Smartphone</Link>
-                </li>
-                <li className="header__sub-menu__item__sub-menu__item">
-                  <Link>Điện thoại phổ thông</Link>
-                </li>
-                <li className="header__sub-menu__item__sub-menu__item">
-                  <Link>Điện thoại bàn</Link>
-                </li>
-              </ul>
-            </li>
-            <li className="header__sub-menu__item">
-              <Link>
-                <FontAwesomeIcon icon={faTv} /> Điện tử - Điện lạnh
-              </Link>
-
-              <ul className="header__sub-menu__item__sub-menu">
-                <li className="header__sub-menu__item__sub-menu__item header__sub-menu__item">
-                  <Link>Âm thanh & Phụ kiện Tivi</Link>
+            <ul className="header__sub-menu">
+              {categories.map((category) => (
+                <li className="header__sub-menu__item">
+                  <Link>{category.name}</Link>
 
                   <ul className="header__sub-menu__item__sub-menu">
-                    <li className="header__sub-menu__item__sub-menu__item">
-                      <Link>Loa</Link>
-                    </li>
-                    <li className="header__sub-menu__item__sub-menu__item">
-                      <Link>Phụ kiện Tivi</Link>
-                    </li>
+                    {category.childs.map((childItem) => (
+                      <li
+                        className={classnames(
+                          "header__sub-menu__item__sub-menu__item",
+                          { "header__sub-menu__item": childItem.childs }
+                        )}
+                      >
+                        <Link>{childItem.name}</Link>
+
+                        {childItem.childs && (
+                          <ul className="header__sub-menu__item__sub-menu">
+                            {childItem.childs.map((childChildItem) => (
+                              <li className="header__sub-menu__item__sub-menu__item">
+                                <Link>{childChildItem.name}</Link>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </li>
+                    ))}
                   </ul>
                 </li>
-                <li className="header__sub-menu__item__sub-menu__item">
-                  <Link>Tủ lạnh</Link>
-                </li>
-                <li className="header__sub-menu__item__sub-menu__item">
-                  <Link>Máy lạnh - Máy điều hòa</Link>
-                </li>
-              </ul>
-            </li>
-            <li className="header__sub-menu__item">
-              <Link>
-                <FontAwesomeIcon icon={faHeadphonesAlt} /> Phụ kiện - Thiết bị
-                số
-              </Link>
-            </li>
-          </ul>
-        </div>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <form className="header__search">
           <input type="text" placeholder="Tìm sản phẩm mong muốn..." />

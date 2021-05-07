@@ -4,6 +4,7 @@ import {
   ADD_CHANGE_RATING,
   ADD_CHANGE_PRICE,
   ADD_CHANGE_BRAND,
+  ADD_CHANGE_PAGE,
 } from "redux/actions/user/filter/filterActionType";
 
 const initialState = {
@@ -95,6 +96,15 @@ const reducer = (state = initialState, action) => {
             ],
           },
         };
+    case ADD_CHANGE_PAGE:
+      // debugger;
+      return {
+        ...state,
+        filter: {
+          ...state.filter,
+          page: action.payload,
+        },
+      };
     default:
       return state;
   }

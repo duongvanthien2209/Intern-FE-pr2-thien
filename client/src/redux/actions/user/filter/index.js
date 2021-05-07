@@ -3,6 +3,7 @@ import {
   ADD_CHANGE_RATING,
   ADD_CHANGE_PRICE,
   ADD_CHANGE_BRAND,
+  ADD_CHANGE_PAGE,
 } from "redux/actions/user/filter/filterActionType";
 
 export const changeCategory = (category) => ({
@@ -23,4 +24,9 @@ export const changePrice = (price) => ({
 export const changeBrand = (brand) => ({
   type: ADD_CHANGE_BRAND,
   payload: brand,
+});
+
+export const changePage = (page) => ({
+  type: ADD_CHANGE_PAGE,
+  payload: page,
 });

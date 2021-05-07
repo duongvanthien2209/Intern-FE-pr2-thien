@@ -19,7 +19,6 @@ const Login = () => {
   };
 
   const handleSubmit = (values) => {
-    console.log(values);
     dispatch(userLogin(values));
   };
 

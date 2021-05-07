@@ -33,7 +33,6 @@ const SideFilter = () => {
   };
 
   const handleSubmit = (values) => {
-    // console.log(values);
     dispatch(changePrice(values));
   };
 

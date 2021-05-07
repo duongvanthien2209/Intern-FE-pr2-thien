@@ -7,8 +7,6 @@ import Product from "../Product";
 const Main = () => {
   const match = useRouteMatch();
 
-  console.log(match.url);
-
   return (
     <Switch>
       <DefaultLayout>

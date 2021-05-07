@@ -22,6 +22,5 @@ export const filterProduct = (categoryId, filter) => {
     queryString += `&price[from]=${price.current.from}&price[to]=${price.current.to}`;
 
   // debugger;
-  console.log(queryString);
   return axiosClient.get(queryString);
 };

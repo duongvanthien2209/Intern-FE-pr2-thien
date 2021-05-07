@@ -10,14 +10,13 @@ import "./Product.scss";
 // Actions
 import { changeCategory } from "redux/actions/user/filter";
 import ProductList from "components/User/Product/ProductList";
+import CurrentPagination from "components/User/Product/CurrentPagination/CurrentPagination";
 
 const Product = () => {
   const { categoryId } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("Change Category");
-
     dispatch(changeCategory(categoryId));
   }, [categoryId]);
 
@@ -29,6 +28,7 @@ const Product = () => {
         </Col>
         <Col lg="9">
           <ProductList />
+          <CurrentPagination />
         </Col>
       </Row>
     </div>

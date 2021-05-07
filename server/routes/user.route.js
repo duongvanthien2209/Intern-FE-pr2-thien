@@ -10,4 +10,8 @@ router.use("/auth", require("./user/auth.route"));
 
 router.use(handleError);
 
+router.use("/category", require("./user/category.route"));
+
+router.use(handleError);
+
 module.exports = router;

@@ -8,6 +8,8 @@ import {
   faShoppingCart,
   faBars,
   faMobileAlt,
+  faTv,
+  faHeadphonesAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
 import tikiBrand from "assets/img/tiki_brand.png";
@@ -29,22 +31,60 @@ const Header = () => {
             <span>
               Danh mục
               <br />
-              sản phẩm
+              Sản phẩm
             </span>
           </p>
 
           <ul className="header__sub-menu">
             <li className="header__sub-menu__item">
-              <p>
+              <Link>
                 <FontAwesomeIcon className="fa-lg" icon={faMobileAlt} /> Điện
                 thoại - Máy tính bảng
-              </p>
+              </Link>
+
+              <ul className="header__sub-menu__item__sub-menu">
+                <li className="header__sub-menu__item__sub-menu__item">
+                  <Link>Điện thoại Smartphone</Link>
+                </li>
+                <li className="header__sub-menu__item__sub-menu__item">
+                  <Link>Điện thoại phổ thông</Link>
+                </li>
+                <li className="header__sub-menu__item__sub-menu__item">
+                  <Link>Điện thoại bàn</Link>
+                </li>
+              </ul>
             </li>
             <li className="header__sub-menu__item">
-              <p>Điện tử - Điện lạnh</p>
+              <Link>
+                <FontAwesomeIcon icon={faTv} /> Điện tử - Điện lạnh
+              </Link>
+
+              <ul className="header__sub-menu__item__sub-menu">
+                <li className="header__sub-menu__item__sub-menu__item header__sub-menu__item">
+                  <Link>Âm thanh & Phụ kiện Tivi</Link>
+
+                  <ul className="header__sub-menu__item__sub-menu">
+                    <li className="header__sub-menu__item__sub-menu__item">
+                      <Link>Loa</Link>
+                    </li>
+                    <li className="header__sub-menu__item__sub-menu__item">
+                      <Link>Phụ kiện Tivi</Link>
+                    </li>
+                  </ul>
+                </li>
+                <li className="header__sub-menu__item__sub-menu__item">
+                  <Link>Tủ lạnh</Link>
+                </li>
+                <li className="header__sub-menu__item__sub-menu__item">
+                  <Link>Máy lạnh - Máy điều hòa</Link>
+                </li>
+              </ul>
             </li>
             <li className="header__sub-menu__item">
-              <p>Phụ kiện - Thiết bị số</p>
+              <Link>
+                <FontAwesomeIcon icon={faHeadphonesAlt} /> Phụ kiện - Thiết bị
+                số
+              </Link>
             </li>
           </ul>
         </div>

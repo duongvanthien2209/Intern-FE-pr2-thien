@@ -39,13 +39,75 @@
         position: absolute;
         top: calc(100%);
         right: 0;
+        z-index: 999;
 
         display: none;
 
         width: 300px;
 
-        box-shadow: 5px 5px 5px $shadow;
+        box-shadow: 5px 5px 15px $shadow;
         background-color: $white;
+
+        &__item {
+          position: relative;
+
+          padding: 10px;
+
+          a {
+            @extend %reset_link;
+            color: $text-black;
+
+            svg {
+              margin-right: 5px
+            }
+          }
+
+          &:hover {
+            background-color: $header_bg;
+          }
+
+          &:hover > a {
+            color: $white;
+          }
+
+          &:hover > .header__sub-menu__item__sub-menu {
+            display: block;
+          }
+
+          &__sub-menu {
+            @extend %reset_ul;
+
+            position: absolute;
+            top: 0;
+            left: 100%;
+            z-index: 1000;
+
+            display: none;
+
+            width: 300px;
+
+            background-color: $white;
+            box-shadow: 5px 5px 15px $shadow;
+
+            &__item {
+              padding: 10px;
+
+              &:hover {
+                background-color: $header_bg;
+              }
+            }
+
+            &__item > a {
+              @extend %reset_link;
+              color: $text-black;
+            }
+
+            &__item:hover > a {
+              color: $white;
+            }
+          }
+        }
+
       }
 
       &:hover { 

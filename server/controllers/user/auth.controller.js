@@ -31,7 +31,7 @@ exports.register = async (req, res, next) => {
     user = await User.findOne({ username });
     if (user) throw new Error("Tên đăng nhập đã tồn tại");
 
-    const dateParts = birthday.split("/");
+    const dateParts = birthday.split("-");
     // Tạo mã hóa
     const salt = await bcrypt.genSalt(10);
 

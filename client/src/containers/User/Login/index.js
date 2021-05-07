@@ -6,9 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import LoginForm from "components/User/LoginForm";
 
 import { userLogin } from "redux/actions/user/auth";
+import { Redirect } from "react-router";
 
 const Login = () => {
-  const { isLogined, token } = useSelector((state) => state["user/auth"]);
+  const { isLogined } = useSelector((state) => state["user/auth"]);
 
   const dispatch = useDispatch();
 
@@ -24,7 +25,7 @@ const Login = () => {
 
   return (
     <div>
-      {isLogined && <h1>LOGINED: {token}</h1>}
+      {isLogined && <Redirect to={{ pathname: "/main" }} />}
       <LoginForm initialValues={initialValues} onSubmit={handleSubmit} />
     </div>
   );

@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 
 app.use("/api", require("./routes/api.route"));
-// app.use("/example", require("./routes/example.route"));
+app.use("/example", require("./routes/example.route"));
 
 app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`);

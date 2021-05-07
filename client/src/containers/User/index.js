@@ -12,7 +12,7 @@ const User = () => {
     <Switch>
       <PublicRoute exact path={`/login`} component={Login} />
       <PublicRoute exact path={`/register`} component={Register} />
-      <PublicRoute exact path={`/main`} component={Main} />
+      <PublicRoute path={`/main`} component={Main} />
     </Switch>
   );
 };

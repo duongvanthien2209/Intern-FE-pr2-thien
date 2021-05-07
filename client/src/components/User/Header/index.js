@@ -31,6 +31,8 @@ const Header = () => {
     dispatch(getCategory());
   }, []);
 
+  console.log(categories);
+
   return (
     <header id="header">
       <Container>
@@ -52,7 +54,9 @@ const Header = () => {
             <ul className="header__sub-menu">
               {categories.map((category) => (
                 <li className="header__sub-menu__item">
-                  <Link>{category.name}</Link>
+                  <Link to={`/main/product/${category.id}`}>
+                    {category.name}
+                  </Link>
 
                   <ul className="header__sub-menu__item__sub-menu">
                     {category.childs.map((childItem) => (
@@ -62,13 +66,17 @@ const Header = () => {
                           { "header__sub-menu__item": childItem.childs }
                         )}
                       >
-                        <Link>{childItem.name}</Link>
+                        <Link to={`/main/product/${childItem.id}`}>
+                          {childItem.name}
+                        </Link>
 
                         {childItem.childs && (
                           <ul className="header__sub-menu__item__sub-menu">
                             {childItem.childs.map((childChildItem) => (
                               <li className="header__sub-menu__item__sub-menu__item">
-                                <Link>{childChildItem.name}</Link>
+                                <Link to={`/main/product/${childChildItem.id}`}>
+                                  {childChildItem.name}
+                                </Link>
                               </li>
                             ))}
                           </ul>

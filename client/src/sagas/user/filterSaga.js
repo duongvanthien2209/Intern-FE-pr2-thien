@@ -19,6 +19,7 @@ import {
 
 function* fetchChangeCategory(action) {
   try {
+    // debugger;
     const { status, error, data } = yield call(
       getChildCategory,
       action.payload
@@ -45,7 +46,7 @@ function* fetchChangeCategory(action) {
         yield put({
           type: ADD_CHANGE_CATEGORY_SUCCESS,
           currentCategory,
-          brands,
+          brands: brands.map((brand) => ({ name: brand, status: false })),
           price,
           childCategories,
         });

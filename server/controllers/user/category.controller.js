@@ -30,7 +30,7 @@ exports.getAll = async (req, res, next) => {
 
           childChildResult = childChildCategories.map((childChildCategory) => ({
             name: childChildCategory.name,
-            id: childCategory._id,
+            id: childChildCategory._id,
           }));
 
           if (childChildResult.length > 0) {

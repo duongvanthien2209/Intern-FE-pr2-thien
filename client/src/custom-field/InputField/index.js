@@ -11,6 +11,7 @@ const InputField = (props) => {
   const showError = errors[name] && touched[name];
 
   // console.log(value);
+  // console.log(value);
 
   return (
     <FormGroup>

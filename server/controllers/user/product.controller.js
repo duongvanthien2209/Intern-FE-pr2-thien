@@ -20,37 +20,45 @@ exports.getByCategory = async (req, res, next) => {
 
     if (!products) throw new Error("Có lỗi xảy ra");
 
-    let brands = [];
+    if (products.length > 0) {
+      let brands = [];
 
-    let max = 0;
-    let min = products[0].price;
+      let max = 0;
+      let min = products[0].price;
 
-    products.forEach((product) => {
-      const index = brands.indexOf(product.brand_name);
+      products.forEach((product) => {
+        const index = brands.indexOf(product.brand_name);
 
-      if (index < 0) brands.push(product.brand_name);
+        if (index < 0) brands.push(product.brand_name);
 
-      if (product.price > max) max = product.price;
+        if (product.price > max) max = product.price;
 
-      if (product.price < min) min = product.price;
-    });
+        if (product.price < min) min = product.price;
+      });
 
-    if (max === min) throw new Error("Có lỗi xảy ra");
+      if (max === min) throw new Error("Có lỗi xảy ra");
 
-    let space = (max - min) / 4;
-    let co1 = Math.round(min + space);
-    let mid = Math.round(min + 2 * space);
-    let co3 = Math.round(max - space);
+      let space = (max - min) / 4;
+      let co1 = Math.round(min + space);
+      let mid = Math.round(min + 2 * space);
+      let co3 = Math.round(max - space);
+
+      return Response.success(res, {
+        currentCategory: { id: category.id, name: category.name },
+        brands,
+        price: [
+          { from: 0, to: co1 },
+          { from: co1, to: mid },
+          { from: mid, to: co3 },
+          { from: co3, to: 0 },
+        ],
+      });
+    }
 
     return Response.success(res, {
       currentCategory: { id: category.id, name: category.name },
-      brands,
-      price: [
-        { from: 0, to: co1 },
-        { from: co1, to: mid },
-        { from: mid, to: co3 },
-        { from: co3, to: 0 },
-      ],
+      brands: [],
+      price: [],
     });
   } catch (error) {
     console.log(error);
@@ -77,17 +85,27 @@ exports.getByFilter = async (req, res, next) => {
 
     if (brands) queryObj.$and.push({ brand_name: { $in: brands } });
 
-    if (price)
-      queryObj.$and.push({
-        $and: [
-          { price: { $gte: parseInt(price.from) } },
-          { price: { $lte: parseInt(price.to) } },
-        ],
-      });
+    if (price) {
+      const from = parseInt(price.from);
+      const to = parseInt(price.to);
+      if (from === 0 && to !== 0) {
+        queryObj.$and.push({
+          $and: [{ price: { $lte: to } }],
+        });
+      } else if (from !== 0 && to === 0) {
+        queryObj.$and.push({
+          $and: [{ price: { $gte: from } }],
+        });
+      } else {
+        queryObj.$and.push({
+          $and: [{ price: { $gte: from } }, { price: { $lte: to } }],
+        });
+      }
+    }
 
     const total = await Product.find(queryObj).count();
     let products = await Product.find(queryObj)
-      .skip((page - 1) * limit)
+      .skip((parseInt(page) - 1) * limit)
       .limit(limit);
 
     if (!products) throw new Error("Có lỗi xảy ra");

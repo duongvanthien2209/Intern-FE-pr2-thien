@@ -17,7 +17,10 @@ const Main = () => {
           path={`${match.url}`}
           component={() => <h1>Default Main</h1>}
         />
-        <PublicRoute exact path={`${match.url}/product`} component={Product} />
+        <PublicRoute
+          path={`${match.url}/product/:categoryId`}
+          component={Product}
+        />
       </DefaultLayout>
     </Switch>
   );

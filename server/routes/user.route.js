@@ -14,4 +14,8 @@ router.use("/category", require("./user/category.route"));
 
 router.use(handleError);
 
+router.use("/product", require("./user/product.route"));
+
+router.use(handleError);
+
 module.exports = router;

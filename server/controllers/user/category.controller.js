@@ -62,3 +62,26 @@ exports.getAll = async (req, res, next) => {
     return next(error);
   }
 };
+
+exports.getChildCategory = async (req, res, next) => {
+  const { categoryId } = req.params;
+
+  try {
+    if (!categoryId) throw new Error("Có lỗi xảy ra");
+
+    const category = await Category.findById(categoryId);
+
+    if (!category) throw new Error("Category không hợp lệ");
+
+    const childCategories = await Category.find({
+      parentCategory: category._id,
+    });
+
+    if (!childCategories) throw new Error("Category không hợp lệ");
+
+    return Response.success(res, { childCategories });
+  } catch (error) {
+    console.log(error);
+    return next(error);
+  }
+};

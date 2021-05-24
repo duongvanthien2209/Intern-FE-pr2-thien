@@ -171,3 +171,61 @@ exports.getProductByCategory = async (req, res) => {
     return res.json({ error: error.message });
   }
 };
+
+exports.updateProduct = async (req, res) => {
+  try {
+    const products = await Product.find();
+
+    for (let product of products) {
+      let result = [];
+      let currentCategory = await Category.findById(product.category);
+      if (!currentCategory) throw new Error("Có lỗi xảy ra");
+
+      result.push(currentCategory._id);
+
+      let parentCategory = await Category.findById(
+        currentCategory.parentCategory
+      );
+
+      if (!parentCategory) throw new Error("Có lỗi xảy ra");
+
+      result.push(parentCategory._id);
+
+      if (parentCategory.parentCategory) {
+        let upLevelParentCategory = await Category.findById(
+          parentCategory.parentCategory
+        );
+
+        if (!upLevelParentCategory) throw new Error("Có lỗi xảy ra");
+
+        result.push(upLevelParentCategory._id);
+      }
+
+      product.category = result;
+      await product.save();
+    }
+
+    return res.send("Done");
+  } catch (error) {
+    return res.json(error.message);
+  }
+};
+
+exports.updateRatingForProduct = async (req, res) => {
+  try {
+    const products = await Product.find();
+
+    await Promise.all(
+      products.map((product) => {
+        const rating = 1 + Math.random() * 4;
+
+        product.rating_average = rating;
+        return product.save();
+      })
+    );
+
+    return res.send("Done");
+  } catch (error) {
+    return res.send(error.message);
+  }
+};

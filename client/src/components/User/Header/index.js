@@ -26,12 +26,11 @@ import { useDispatch, useSelector } from "react-redux";
 const Header = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state["user/category"]);
+  const { cart } = useSelector((state) => state["user/cart"]);
 
   useEffect(() => {
     dispatch(getCategory());
   }, []);
-
-  console.log(categories);
 
   return (
     <header id="header">
@@ -99,10 +98,10 @@ const Header = () => {
 
         <div className="header__login/register"></div>
 
-        <Link className="header__card" to="#">
+        <Link className="header__card" to="/main/cart">
           <div className="header__card__span">
             <FontAwesomeIcon className="fa-2x" icon={faShoppingCart} />
-            <span className="header__card__span__number">0</span>
+            <span className="header__card__span__number">{cart.length}</span>
           </div>
           Giỏ hàng
         </Link>

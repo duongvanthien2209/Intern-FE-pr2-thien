@@ -24,3 +24,6 @@ export const filterProduct = (categoryId, filter) => {
   // debugger;
   return axiosClient.get(queryString);
 };
+
+export const getProduct = (productId) =>
+  axiosClient.get(`${baseURLUserProduct}/${productId}`);

@@ -39,12 +39,11 @@ const Register = () => {
 
       if (status === RESPONSE_STATUS_SUCCESS && data) {
         const { message } = data;
-        console.log(message);
 
         setRegisted(() => true);
       }
     } catch (error) {
-      console.log(error);
+      return console.log(error);
     }
   };
 

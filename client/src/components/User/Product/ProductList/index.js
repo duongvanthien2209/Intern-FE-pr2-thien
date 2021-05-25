@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import "./ProductList.scss";
+
 // Actions
 import { changeProduct } from "redux/actions/user/product";
+import ProductItem from "../ProductItem";
 
 const ProductList = () => {
   const { filter, currentCategory } = useSelector(
@@ -12,18 +15,21 @@ const ProductList = () => {
 
   const dispatch = useDispatch();
 
-  console.log(currentCategory);
-
   useEffect(() => {
     // debugger;
     if (currentCategory) dispatch(changeProduct(filter, currentCategory.id));
   }, [filter, currentCategory]);
 
   return (
-    <div>
+    <div className="product-list">
       {currentCategory && (
         <h1>{`Đang chọn: ${currentCategory.name}, ${total} kết quả`}</h1>
       )}
+
+      <div className="product-list__items">
+        {products.length > 0 &&
+          products.map((product) => <ProductItem product={product} />)}
+      </div>
     </div>
   );
 };

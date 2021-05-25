@@ -2,8 +2,6 @@ import React from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
 const Brand = ({ brands, onChangeBrand }) => {
-  console.log("BRAND", brands);
-
   return (
     <div className="side-filter__brand">
       <h3>Thương hiệu</h3>

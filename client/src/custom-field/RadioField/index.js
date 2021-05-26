@@ -32,6 +32,7 @@ const RadioField = (props) => {
               name={name}
               onChange={() => handleSelectChange(option.id)}
               value={option.id}
+              checked={option.id === value}
             />{" "}
             {option.text}
           </Label>

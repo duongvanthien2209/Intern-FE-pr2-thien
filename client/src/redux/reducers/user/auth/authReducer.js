@@ -3,10 +3,13 @@ import {
   USER_LOGIN_FAIL,
   IS_LOGING,
   GET_ME,
+  USER_CHANGE_PASSWORD_SUCCESS,
+  USER_UPDATE_INFO_SUCCESS,
 } from "../../../actions/user/auth/authActionType";
 
 const initialState = {
   user: null,
+  password: null,
   isLogined: false,
   loading: false,
   error: null,
@@ -19,6 +22,7 @@ const reducer = (state = initialState, action) => {
 
       return {
         ...state,
+        password: action.password,
         user: action.user,
         isLogined: true,
         loading: false,
@@ -39,6 +43,19 @@ const reducer = (state = initialState, action) => {
         user: action.payload,
         isLogined: true,
         loading: false,
+      };
+    case USER_UPDATE_INFO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        user: action.user,
+      };
+    case USER_CHANGE_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        user: action.user,
+        password: action.password,
       };
     default:
       return state;

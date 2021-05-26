@@ -37,7 +37,6 @@ const Order = () => {
   ];
 
   const handleSubmit = async (values) => {
-    // console.log(values);
     try {
       const payMethod = payMethodOptions.find(
         (item) => item.id === values.payMethod
@@ -49,7 +48,6 @@ const Order = () => {
         cart: cart.map((item) => ({ _id: item._id, total: item.total })),
       });
 
-      // debugger;
       if (status === RESPONSE_STATUS_FAILED && error)
         throw new Error(error.message);
 

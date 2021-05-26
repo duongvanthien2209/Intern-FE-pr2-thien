@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-const {
-  example,
-  register,
-  login,
-} = require("../../controllers/user/auth.controller");
+// Middlewares
+const { protect } = require("../../middlewares/user/auth.middleware");
 
-router.get("/", example);
+const { register, login } = require("../../controllers/user/auth.controller");
+
+// router.get("/", example);
+router.get("/getMe", protect);
 
 router.post("/register", register);
 

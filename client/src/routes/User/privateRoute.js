@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { isLogined } = useSelector((state) => state["user/auth"]);
 
-  if (!isLogined) return <Redirect to={{ pathname: "/admin/login" }} />;
+  if (!isLogined) return <Redirect to={{ pathname: "/login" }} />;
 
   return <Route {...rest} render={() => <Component />} />;
 };

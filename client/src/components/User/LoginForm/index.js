@@ -7,15 +7,16 @@ import PropTypes from "prop-types";
 import InputField from "custom-field/InputField";
 import { Button } from "reactstrap";
 
+// Validation Messages
+import { VALIDATION_USERNAME, VALIDATION_PASSWORD } from "constants/index";
+
 const LoginForm = ({ initialValues, onSubmit }) => {
   const validationSchema = yup.object().shape({
-    username: yup
-      .string()
-      .required("Bạn phải nhập tên đăng nhập hoặc địa chỉ email"),
+    username: yup.string().required(VALIDATION_USERNAME.required),
     password: yup
       .string()
-      .required("Bạn phải nhập mật khẩu.")
-      .min(8, "Mật khẩu không được ít hơn 8 ký tự."),
+      .required(VALIDATION_PASSWORD.required)
+      .min(8, VALIDATION_PASSWORD.min),
   });
 
   return (

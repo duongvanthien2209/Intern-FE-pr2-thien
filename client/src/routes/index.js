@@ -11,7 +11,7 @@ const Routes = () => {
   return (
     <Router>
       <Switch>
-        <PublicRoute path="/admin" exact component={Admin} />
+        <PublicRoute path="/admin" component={Admin} />
 
         <PublicRoute path="/" component={User} />
       </Switch>

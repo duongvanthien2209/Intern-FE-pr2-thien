@@ -9,6 +9,8 @@ import { watchFetchCategory } from "./user/categorySaga";
 import { watchFetchChangeCategory } from "./user/filterSaga";
 import { watchFetchChangeProduct } from "./user/productSaga";
 
+import { watchAdminLogin } from "./admin/authSaga";
+
 export default function* rootSaga() {
   yield all([
     watchUserLogin(),
@@ -17,5 +19,7 @@ export default function* rootSaga() {
     watchFetchChangeProduct(),
     watchUserChangePassword(),
     watchUserUpdateInfo(),
+
+    watchAdminLogin(),
   ]);
 }

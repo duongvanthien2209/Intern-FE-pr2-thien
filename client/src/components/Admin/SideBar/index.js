@@ -61,12 +61,12 @@ const SideBar = () => {
         </Link>
       </li>
 
-      <li className="nav-item">
+      {/* <li className="nav-item">
         <Link className="nav-link" to="/admin/main/qlLoaiMonAn">
           <FontAwesomeIcon className="mr-2" icon={faUtensils} />
           <span>Loại món ăn</span>
         </Link>
-      </li>
+      </li> */}
     </ul>
   );
 };

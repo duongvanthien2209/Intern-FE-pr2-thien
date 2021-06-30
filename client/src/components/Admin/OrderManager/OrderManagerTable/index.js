@@ -40,6 +40,8 @@ const OrderManagerTable = ({ orders, onChangeStatus, onDeleteOrderDetail }) => {
     }
   };
 
+  console.log(order);
+
   return (
     <Table bordered>
       {order && (
